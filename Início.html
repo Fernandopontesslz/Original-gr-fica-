@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/5.5.2/collection/components/icon/icon.min.css">
+    <style>
+        body {
+            background-color: #121212;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #e0e0e0;
+        }
+        section {
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            width: 300px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #e0e0e0;
+            text-align: center;
+        }
+        .inputbox {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .inputbox ion-icon {
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+            color: #888;
+        }
+        .inputbox input {
+            width: calc(100% - 40px);
+            padding: 10px 10px 10px 30px;
+            border: none;
+            border-radius: 25px;
+            outline: none;
+            background: #2c2c2c;
+            color: #e0e0e0;
+            box-sizing: border-box;
+        }
+        .inputbox label {
+            position: absolute;
+            top: 50%;
+            left: 40px;
+            transform: translateY(-50%);
+            color: #888;
+            pointer-events: none;
+            transition: 0.3s;
+        }
+        .inputbox input:focus + label,
+        .inputbox input:valid + label {
+            top: -10px;
+            left: 30px;
+            font-size: 12px;
+            color: #ccc;
+        }
+        button {
+            padding: 10px;
+            background: #5691ff;
+            border: none;
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #3a6fdd;
+        }
+        .login {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .login p {
+            color: #888;
+        }
+        .login a {
+            color: #5691ff;
+            text-decoration: none;
+        }
+        .login a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<section>
+  <form id="registrationForm">
+    <h1>Registro</h1>
+    <div class="inputbox">
+      <ion-icon name="person-outline"></ion-icon>
+      <input type="text" id="name" required>
+      <label for="name">Nome</label>
+    </div>
+    <div class="inputbox">
+      <ion-icon name="mail-outline"></ion-icon>
+      <input type="email" id="email" required>
+      <label for="email">Email</label>
+    </div>
+    <div class="inputbox">
+      <ion-icon name="lock-closed-outline"></ion-icon>
+      <input type="password" id="password" required>
+      <label for="password">Senha</label>
+    </div>
+    <div class="inputbox">
+      <ion-icon name="lock-closed-outline"></ion-icon>
+      <input type="password" id="confirmPassword" required>
+      <label for="confirmPassword">Confirme a Senha</label>
+    </div>
+    <button type="submit">Registrar</button>
+    <div class="login">
+      <p>Já tem uma conta? <a href="login.html">Login</a></p>
+    </div>
+  </form>
+</section>
+<script type="module">
+  document.getElementById('registrationForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+    
+    if (password !== confirmPassword) {
+      alert('As senhas não correspondem');
+      return;
+    }
+    
+    const newUser = { name, email, password };
+
+    let users = JSON.parse(localStorage.getItem('users')) || [];
+    users.push(newUser);
+    localStorage.setItem('users', JSON.stringify(users));
+    
+    this.reset();
+    alert('Registro concluído com sucesso!');
+  });
+</script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+  </html>
